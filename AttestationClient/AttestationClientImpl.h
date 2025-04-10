@@ -213,7 +213,6 @@ public:
     attest::AttestationResult ParseMaaResponse(const std::string& jsonResponse,
         std::string& token);
 
-private:
     /**
      * @brief This function will be used to retrieve the attestation parameters
      * needed to send with the attestation request to AAS.
@@ -230,6 +229,7 @@ private:
                                                                                 std::string>& client_payload,
                                                        attest::AttestationParameters& params);
 
+private:
     /**
      * @brief This function will be used to send the attestation request to the
      * AAS endpoint.
