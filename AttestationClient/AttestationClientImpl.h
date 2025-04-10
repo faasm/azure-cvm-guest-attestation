@@ -43,6 +43,9 @@ public:
      */
     attest::AttestationResult Attest(const attest::ClientParameters& client_params,
                                      unsigned char** jwt_token) noexcept override;
+    attest::AttestationResult Attest(const attest::AttestationParameters& params,
+		    		     const std::string& attestation_url,
+                                     unsigned char** jwt_token) noexcept;
 
     /**
      * @brief This API encrypts the data based on the EncryptionType
@@ -230,6 +233,9 @@ public:
                                                        attest::AttestationParameters& params);
 
 private:
+    attest::AttestationResult doAttest(const attest::AttestationParameters& params,
+                                       unsigned char** jwt_token) noexcept;
+
     /**
      * @brief This function will be used to send the attestation request to the
      * AAS endpoint.

@@ -143,6 +143,33 @@ AttestationResult AttestationClientImpl::Attest(const ClientParameters& client_p
         return result;
     }
 
+    return doAttest(params, jwt_token_out);
+}
+
+AttestationResult AttestationClientImpl::Attest(const AttestationParameters& params,
+						const std::string& attestation_url,
+                                                unsigned char** jwt_token_out) noexcept {
+    AttestationResult result(AttestationResult::ErrorCode::SUCCESS);
+
+    std::string url = std::string(const_cast<char*>(reinterpret_cast<const char*>(attestation_url.c_str())));
+    // parse the url and extract the dns
+    std::string dns;
+    if ((result = url::ParseURL(url, dns)).code_ != AttestationResult::ErrorCode::SUCCESS) {
+        return result;
+    }
+
+    // Copy attestation endpoint and access token to member variables.
+    attestation_url_ = std::string(std::string(azure_guest_protocol))
+                                  .append(dns)
+                                  .append(std::string(azure_guest_url));
+    CLIENT_LOG_INFO("Attestation URL - %s", attestation_url_.c_str());
+    return doAttest(params, jwt_token_out);
+}
+
+AttestationResult AttestationClientImpl::doAttest(const AttestationParameters& params,
+                                                  unsigned char** jwt_token_out) noexcept {
+    AttestationResult result(AttestationResult::ErrorCode::SUCCESS);
+
     if(!params.Validate()) {
         // One or more parameters are invalid. Log error indicating validation
         // failed along with function name and error string.
