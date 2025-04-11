@@ -85,4 +85,4 @@ export CC=gcc && export CXX=g++ && \
 
 cd ${CURRENT_DIR}
 
-popd
+popd || true
