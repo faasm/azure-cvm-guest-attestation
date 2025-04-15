@@ -23,7 +23,7 @@
 #include <json/json.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
-#include <openssl/x509v3.h> 
+#include <openssl/x509v3.h>
 #include <openssl/evp.h>
 #include <openssl/rsa.h>
 #include "Exceptions.h"
@@ -105,8 +105,8 @@ AttestationResult AttestationClientImpl::Attest(const ClientParameters& client_p
         if ((result = tpm_cert_ops.RenewAndReplaceAkCert()).code_ != AttestationResult::ErrorCode::SUCCESS) {
             CLIENT_LOG_ERROR("Failed to renew AkCert, description: %s with error code: %d", result.description_, static_cast<int>(result.code_));
             if (telemetry_reporting.get() != nullptr) {
-                telemetry_reporting->UpdateEvent("AkRenew", 
-                                                "Failed to renew AkCert, error description: " + result.description_, 
+                telemetry_reporting->UpdateEvent("AkRenew",
+                                                "Failed to renew AkCert, error description: " + result.description_,
                                                 TelemetryReportingBase::EventLevel::AK_RENEW_UNEXPECTED_ERROR);
             }
         }
@@ -126,11 +126,11 @@ AttestationResult AttestationClientImpl::Attest(const ClientParameters& client_p
                                   .append(dns)
                                   .append(std::string(azure_guest_url));
     CLIENT_LOG_INFO("Attestation URL - %s", attestation_url_.c_str());
- 
+
     AttestationParameters params = {};
     std::unordered_map<std::string, std::string> client_payload_map;
     if (client_params.client_payload != nullptr) {
-        if ((result = ParseClientPayload(client_params.client_payload, client_payload_map)).code_ != 
+        if ((result = ParseClientPayload(client_params.client_payload, client_payload_map)).code_ !=
                                                     AttestationResult::ErrorCode::SUCCESS) {
             return result;
         }
@@ -265,7 +265,7 @@ AttestationResult AttestationClientImpl::Encrypt(const attest::EncryptionType en
 
     // Convert JWK to RSA public key
     BIO* pkey_bio = BIO_new(BIO_s_mem());
-    if ((result = crypto::ConvertJwkToRsaPubKey(pkey_bio, n_base64url, e_base64url)).code_ != 
+    if ((result = crypto::ConvertJwkToRsaPubKey(pkey_bio, n_base64url, e_base64url)).code_ !=
                                                                 AttestationResult::ErrorCode::SUCCESS) {
         CLIENT_LOG_ERROR("Failed to convert JWK to RSA Public key");
         BIO_free(pkey_bio);
@@ -381,7 +381,7 @@ AttestationResult AttestationClientImpl::DecryptMaaToken(const std::string& jwt_
         result.description_ = std::string("Invalid JWT");
         return result;
     }
-    
+
     std::string jwt = jwt_token_encrypted;
 
     // Decode the encrypted jwt since its base64url encoded by the service.
@@ -456,7 +456,7 @@ AttestationResult AttestationClientImpl::DecryptMaaToken(const std::string& jwt_
 }
 
 AttestationResult AttestationClientImpl::ParseClientPayload(const unsigned char* client_payload,
-                                                            std::unordered_map<std::string, 
+                                                            std::unordered_map<std::string,
                                                                                std::string>& client_payload_map) {
     AttestationResult result(AttestationResult::ErrorCode::SUCCESS);
     if (client_payload == nullptr) {
@@ -560,7 +560,7 @@ AttestationResult AttestationClientImpl::sendAttestationRequest(
     }
 
     jwt_token_encrypted = response;
-    
+
     return result;
 }
 
@@ -747,8 +747,8 @@ AttestationResult AttestationClientImpl::GetIsolationInfo(IsolationInfo& isolati
     }
 
     if(telemetry_reporting.get() != nullptr) {
-        telemetry_reporting->UpdateEvent("IsolationInfo", 
-                                            isolation_info_str, 
+        telemetry_reporting->UpdateEvent("IsolationInfo",
+                                            isolation_info_str,
                                             attest::TelemetryReportingBase::EventLevel::VM_SECURITY_TYPE);
     }
 
