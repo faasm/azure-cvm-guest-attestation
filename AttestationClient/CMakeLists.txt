@@ -33,7 +33,7 @@ add_library(${CMAKE_PROJECT_TARGET} SHARED
   	    TpmUnseal.cpp
 	    ${CMAKE_CURRENT_LIST_DIR}/../external/jsoncpp-0.10.7/src/jsoncpp.cpp)
 
-target_compile_options(${CMAKE_PROJECT_TARGET} PRIVATE -Wno-narrowing -Wno-dev -Wno-conversion-null)
+target_compile_options(${CMAKE_PROJECT_TARGET} PRIVATE -Wno-narrowing -Wno-conversion-null)
 target_include_directories(${CMAKE_PROJECT_TARGET} PUBLIC
     ${CURL_INCLUDE_DIR}
     ${CRYPTO_INCLUDE_DIR}
