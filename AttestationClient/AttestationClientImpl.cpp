@@ -103,7 +103,7 @@ AttestationResult AttestationClientImpl::Attest(const ClientParameters& client_p
     result = AttestationResult::ErrorCode::SUCCESS;
     if (is_ak_cert_renewal_required) {
         if ((result = tpm_cert_ops.RenewAndReplaceAkCert()).code_ != AttestationResult::ErrorCode::SUCCESS) {
-            CLIENT_LOG_ERROR("Failed to renew AkCert, description: %s with error code: %d", result.description_, static_cast<int>(result.code_));
+            CLIENT_LOG_ERROR("Failed to renew AkCert, description: %s with error code: %d", result.description_.c_str(), static_cast<int>(result.code_));
             if (telemetry_reporting.get() != nullptr) {
                 telemetry_reporting->UpdateEvent("AkRenew",
                                                 "Failed to renew AkCert, error description: " + result.description_,
