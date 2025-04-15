@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.5)
 set (CMAKE_PROJECT_TARGET Tpm2)
 project (Linux${CMAKE_PROJECT_TARGET})
 
-find_package(Tss2 REQUIRED)
+find_package(TSS2 REQUIRED)
 include_directories(${TSS2_INCLUDE_DIRS})
 
 find_path(CRYPTO_INCLUDE_DIR NAMES openssl PATHS /usr/local/attestationssl/include

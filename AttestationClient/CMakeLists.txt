@@ -1,20 +1,20 @@
 cmake_minimum_required(VERSION 3.5)
 
-find_package(Tss2 REQUIRED)
+find_package(TSS2 REQUIRED)
 include_directories(${TSS2_INCLUDE_DIRS})
 
-find_path(CURL_INCLUDE_DIR 
-	  NAMES curl 
+find_path(CURL_INCLUDE_DIR
+	  NAMES curl
 	  PATHS /usr/local/attestationcurl/include NO_DEFAULT_PATH)
-find_path(CRYPTO_INCLUDE_DIR 
-	  NAMES openssl 
+find_path(CRYPTO_INCLUDE_DIR
+	  NAMES openssl
 	  PATHS /usr/local/attestationssl/include NO_DEFAULT_PATH)
-find_library(CURL_LIB 
-	     NAMES curl 
+find_library(CURL_LIB
+	     NAMES curl
 	     PATHS /usr/local/attestationcurl/lib NO_DEFAULT_PATH)
 
 set(CMAKE_PROJECT_TARGET azguestattestation)
-add_library(${CMAKE_PROJECT_TARGET} SHARED 
+add_library(${CMAKE_PROJECT_TARGET} SHARED
   	    AttestationClientImpl.cpp
   	    AttestationClient.cpp
 	    AttestationHelper.cpp
