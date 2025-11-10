@@ -11,6 +11,8 @@ namespace attest {
 
     class AttestationLogger {
     public:
+        virtual ~AttestationLogger() = default;
+
         enum LogLevel {
             Error,
             Warn,
@@ -25,6 +27,6 @@ namespace attest {
                          const char* fmt,
                          ...) = 0;
 
-        std::string LogLevelStrings[4] = { "Error", "Warn", "Info", "Debug"}; 
+        std::string LogLevelStrings[4] = { "Error", "Warn", "Info", "Debug"};
     };
 } // attest
